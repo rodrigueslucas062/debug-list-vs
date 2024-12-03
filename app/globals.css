@@ -25,3 +25,18 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer utilities {
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-zinc-400;
+    @apply rounded-full;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+}

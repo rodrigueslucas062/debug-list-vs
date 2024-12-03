@@ -10,19 +10,11 @@ interface NewNoteCardsProps {
 }
 
 const NewNoteCards = ({ onNoteCreated }: NewNoteCardsProps) => {
-  const [shouldShowOnBoarding, setShouldShowOnBoarding] = useState(true);
   const [content, setContent] = useState("");
   const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
-  function handleStartEditor() {
-    setShouldShowOnBoarding(false);
-  }
-
   function handleContentChanged(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setContent(event.target.value);
-    if (event.target.value === "") {
-      setShouldShowOnBoarding(true);
-    }
   }
 
   function handleSaveNote(event: React.FormEvent) {
@@ -34,7 +26,6 @@ const NewNoteCards = ({ onNoteCreated }: NewNoteCardsProps) => {
     onNoteCreated(content);
     toast.success("Nota criada com sucesso");
     setContent("");
-    setShouldShowOnBoarding(true);
   }
 
   return (
@@ -62,34 +53,13 @@ const NewNoteCards = ({ onNoteCreated }: NewNoteCardsProps) => {
                   Adicionar nota
                 </span>
 
-                {shouldShowOnBoarding ? (
-                  <p className="text-sm leading-6 text-slate-400">
-                    Comece{" "}
-                    {/* <button
-                      type="button"
-                      onClick={handleStartRecording}
-                      className="font-semibold text-sky-600 hover:underline"
-                    >
-                      gravando uma nota em áudio
-                    </button>{" "} */}
-                    ou se preferir{" "}
-                    <button
-                      type="button"
-                      onClick={handleStartEditor}
-                      className="font-semibold text-sky-600 hover:underline"
-                    >
-                      utilize apenas texto
-                    </button>{" "}
-                    automaticamente.
-                  </p>
-                ) : (
-                  <textarea
-                    autoFocus
-                    className="text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none"
-                    onChange={handleContentChanged}
-                    value={content}
-                  />
-                )}
+                <textarea
+                  autoFocus
+                  className="text-sm leading-6 text-slate-400 bg-transparent resize-none flex-1 outline-none"
+                  onChange={handleContentChanged}
+                  placeholder="Digite uma nota ou observação..."
+                  value={content}
+                />
               </div>
 
               <button

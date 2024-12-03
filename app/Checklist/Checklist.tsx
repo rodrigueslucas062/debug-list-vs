@@ -1,14 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { ChecklistData } from "../data/Checklist";
+import { ChecklistData, IChecklist } from "../data/Checklist";
 
 export default function Checklist() {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
     {}
   );
 
-  const handleCheckboxChange = (id: string) => {
+  const handleCardClick = (id: string) => {
     setCheckedItems((prev) => ({
       ...prev,
       [id]: !prev[id],
@@ -17,31 +17,42 @@ export default function Checklist() {
 
   const totalItems = ChecklistData.length;
   const checkedCount = Object.values(checkedItems).filter(Boolean).length;
-
   const progress = (checkedCount / totalItems) * 100;
+
+  const groupedByCategory = ChecklistData.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {} as Record<string, IChecklist[]>);
 
   return (
     <div className="space-y-8 p-4 border border-violet-400 rounded-xl">
-      {ChecklistData.map((item, index) => (
-        <div key={index} className="flex flex-col space-y-1 text-white">
-          <label
-            htmlFor={item.question}
-            className="flex cursor-pointer items-center group"
-          >
-            <input
-              type="checkbox"
-              id={item.question}
-              value=""
-              className="size-4 appearance-none border cursor-pointer rounded-md mr-2 border-violet-500 checked:bg-no-repeat hover:bg-violet-100 checked:bg-center checked:border-violet-500 checked:bg-violet-100 transition-transform duration-200 transform hover:scale-105"
-              onChange={() => handleCheckboxChange(item.question)}
-            />
-            {item.question}
-          </label>
-          <span className="p-2 text-xs text-white bg-black rounded-md ">
-            {item.description}
-          </span>
+      {Object.keys(groupedByCategory).map((category) => (
+        <div key={category} className="space-y-4">
+          <h3 className="text-xl font-semibold text-white">{category}</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {groupedByCategory[category].map((item, index) => (
+              <div
+                key={index}
+                className={`flex flex-col bg-zinc-800 p-4 rounded-xl shadow-[8px_8px_0px_rgba(0,0,0,0.75)] border border-zinc-900 duration-100 cursor-pointer ${
+                  checkedItems[item.question]
+                    ? "bg-white/40 translate-y-1 shadow-[4px_4px_0px_rgba(0,0,0,0.75)]"
+                    : ""
+                }`}
+                onClick={() => handleCardClick(item.question)}
+              >
+                <span className="text-lg font-semibold">{item.question}</span>
+                <span className="p-2 text-xs text-white bg-black rounded-md">
+                  {item.description}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       ))}
+
       <div className="sticky bottom-4 w-full bg-zinc-950/90 p-2 backdrop-blur-sm rounded-2xl">
         <div className="h-5 bg-violet-300 rounded-full relative">
           <div

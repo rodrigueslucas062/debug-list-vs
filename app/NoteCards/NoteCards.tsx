@@ -3,14 +3,6 @@ import { formatDistanceToNow } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { X } from "phosphor-react";
 
-const availableColors = [
-  "bg-amber-200",
-  "bg-sky-300",
-  "bg-emerald-300",
-  "bg-pink-200",
-  "bg-white",
-];
-
 interface NoteCardProps {
   date: Date;
   content: string;
@@ -18,14 +10,12 @@ interface NoteCardProps {
 }
 
 const NoteCards = ({ date, content, handleDeleteNote }: NoteCardProps) => {
-  const randomColor =
-    availableColors[Math.floor(Math.random() * availableColors.length)];
   const shadowStyle = { boxShadow: "8px 8px 0px rgba(0, 0, 0, 0.75)" };
 
   return (
     <Dialog.Root>
       <Dialog.Trigger
-        className={`flex flex-col rounded-lg m-1 text-left p-3 overflow-hidden md:px-2 relative border-4 border-zinc-900 ${randomColor}`}
+        className={`flex flex-col rounded-lg m-1 text-left p-3 overflow-hidden md:px-2 relative border-4 border-zinc-900 bg-sky-300`}
         style={shadowStyle}
       >
         <span className="font-semibold text-zinc-600">
@@ -45,7 +35,9 @@ const NoteCards = ({ date, content, handleDeleteNote }: NoteCardProps) => {
               <span className="font-semibold text-zinc-600">
                 {formatDistanceToNow(date, { locale: ptBR, addSuffix: true })}
               </span>
-              <p className="leading-6 font-semibold text-zinc-900 ">{content}</p>
+              <p className="leading-6 font-semibold text-zinc-900 ">
+                {content}
+              </p>
             </div>
             <button
               type="button"
