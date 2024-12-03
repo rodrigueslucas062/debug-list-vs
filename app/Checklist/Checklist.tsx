@@ -36,10 +36,10 @@ export default function Checklist() {
             {groupedByCategory[category].map((item, index) => (
               <div
                 key={index}
-                className={`flex flex-col bg-zinc-800 p-4 rounded-xl border border-zinc-900 duration-100 cursor-pointer ${
+                className={`flex flex-col p-4 rounded-xl border border-zinc-900 duration-100 cursor-pointer ${
                   checkedItems[item.question]
                     ? "bg-white/40 translate-y-1 shadow-[4px_4px_0px_rgba(0,0,0,0.75)]"
-                    : "shadow-[8px_8px_0px_rgba(0,0,0,0.75)]"
+                    : "shadow-[8px_8px_0px_rgba(0,0,0,0.75)] bg-zinc-800"
                 }`}
                 onClick={() => handleCardClick(item.question)}
               >
