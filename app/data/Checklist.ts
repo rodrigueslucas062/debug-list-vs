@@ -139,7 +139,13 @@ export const ChecklistData: IChecklist[] = [
     category: "Acesso e Permissões",
   },
   {
-    question: "Depois de tudo isso ainda não resolvi, o que posso fazer?",
+    question: "Fazer uma pergunta em fóruns e redes sociais",
+    description:
+      "Fazer uma pergunta em um fórum ou rede social pode ajudar a resolver o problema.",
+    category: "Aconselhamentos Gerais",
+  },
+  {
+    question: "Fazer uma pausa para descançar a cabeça",
     description:
       "Fazer uma pausa ajuda a refrescar a mente e pode permitir ver soluções que passaram despercebidas.",
     category: "Aconselhamentos Gerais",
