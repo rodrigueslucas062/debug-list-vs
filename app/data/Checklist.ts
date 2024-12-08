@@ -19,7 +19,7 @@ export const ChecklistData: IChecklist[] = [
   },
   {
     question:
-      "Existe uma implementação parecida ou semelhante em outra parte do código?",
+      "Existe uma implementação parecida em outra parte do código?",
     description:
       "Verificar códigos similares pode oferecer insights sobre como resolver problemas.",
     category: "Verificação de Erros",

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChecklistData, IChecklist } from "../data/Checklist";
+import { Trash } from "phosphor-react";
 
 export default function Checklist() {
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: boolean }>(
@@ -13,6 +14,10 @@ export default function Checklist() {
       ...prev,
       [id]: !prev[id],
     }));
+  };
+
+  const handleClearAll = () => {
+    setCheckedItems({});
   };
 
   const totalItems = ChecklistData.length;
@@ -63,6 +68,15 @@ export default function Checklist() {
             {Math.round(progress)}% concluído
           </p>
         </div>
+      </div>
+      <div className="flex justify-center mt-4 ">
+        <button
+          onClick={handleClearAll}
+          className="flex justify-center items-center gap-2 w-1/3 hover:bg-red-500 hover:text-white border border-red-500 py-2 rounded-xl text-lg font-semibold focus:outline-none focus:ring-2 focus:ring-red-400"
+        >
+          Limpar Seleção
+          <Trash weight="duotone" size={20}/>
+        </button>
       </div>
     </div>
   );
